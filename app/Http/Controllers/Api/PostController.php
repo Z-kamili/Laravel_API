@@ -13,18 +13,17 @@ class PostController extends Controller
     use ApiResponsesTrait;
     
     public function index(){
-
         $posts = PostResource::collection(Post::get());
         return $this->apiResponse($posts,'ok',200);
 
     }
   public function show($id){
 
-    $post = new PostResource(Post::find($id));
+    $post = Post::find($id);
 
     if($post){
 
-        return $this->apiResponse($post,'ok',200);
+        return $this->apiResponse(new PostResource($post),'ok',200);
 
     }else{
 
